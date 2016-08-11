@@ -1,5 +1,6 @@
 import sbt.ScriptedPlugin
 import sbt.ScriptedPlugin._
+import com.dancingrobot84.sbtidea.{Keys => IdeaKey}
 import scoverage.ScoverageSbtPlugin.ScoverageKeys._
 
 scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
@@ -156,6 +157,20 @@ lazy val sbtScalafix = project
     ),
     scriptedBufferLog := false
   )
+
+ideaBuild in ThisBuild := "145.597.3"
+
+lazy val intellijScalafix = project
+    .settings(allSettings)
+    .settings(IdeaKey.projectSettings)
+    .settings(
+      moduleName := "scalafix-intellij"
+//      ,
+//      ideaPublishSettings := PublishSettings(
+//        pluginId = ""
+//      )
+    )
+    .enablePlugins(SbtIdeaPlugin)
 
 lazy val readme = scalatex
   .ScalatexReadme(projectId = "readme",
