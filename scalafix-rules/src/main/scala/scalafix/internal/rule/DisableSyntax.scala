@@ -24,7 +24,7 @@ final class DisableSyntax(config: DisableSyntaxConfig)
       Position.Range(doc.input, offset, offset)
     val regexDiagnostics = Seq.newBuilder[Diagnostic]
     config.regex.foreach { regex =>
-      val matcher = regex.value.matcher(doc.input.chars)
+      val matcher = regex.value.matcher(java.nio.CharBuffer.wrap(doc.input.chars))
       val pattern = regex.value.pattern
       val message = regex.message.getOrElse(s"$pattern is disabled")
       while (matcher.find()) {
